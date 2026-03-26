@@ -58,7 +58,7 @@ export function initHearts(pet) {
   function updateTogether() {
     var bornStr = getConfig().pet.born;
     if (!bornStr) { togetherEl.textContent = ''; return; }
-    var born = new Date(bornStr + 'T00:00:00');
+    var born = new Date(bornStr);
     var now = new Date();
     var diffMs = now - born;
     var diffHours = Math.floor(diffMs / (1000 * 60 * 60));
