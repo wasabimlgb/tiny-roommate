@@ -71,6 +71,7 @@ loadConfig().then(function(cfg) {
     pet.sprite.edgeClear = getSpriteRenderOptions(pet.currentSprite).edgeClear || 0;
   }
   document.getElementById('chat-input').placeholder = 'Say something to ' + pet.petName + '...';
+  hearts.updateTogether();
 });
 
 behavior.start();

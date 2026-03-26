@@ -79,5 +79,6 @@ export function initHearts(pet) {
   return {
     gainHeart: gainHeart,
     get isSick() { return _isSick; },
+    updateTogether: updateTogether,
   };
 }

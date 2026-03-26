@@ -10,3 +10,5 @@ package-lock.json
 .claude/settings.local.json
 CLAUDE.md
 docs/
+.DS_Store
+__pycache__/

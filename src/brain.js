@@ -201,9 +201,23 @@ export function parseResponse(raw) {
     }
   }
 
-  // Clean up: strip any markdown that slipped into the text field
+  // Clean up: strip markdown, code blocks, tool artifacts, reasoning
   if (text) {
-    text = text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').trim();
+    text = text
+      .replace(/```[\s\S]*?```/g, '')           // code blocks
+      .replace(/```\w*/g, '')                    // unclosed code fences
+      .replace(/\*\*([^*]+)\*\*/g, '$1')        // **bold**
+      .replace(/\*([^*]+)\*/g, '$1')            // *italic*
+      .replace(/<[^>]+>[\s\S]*?<\/[^>]+>/g, '') // XML tags
+      .replace(/^---[\s\S]*?---/gm, '')         // frontmatter blocks
+      .replace(/^#+ .*/gm, '')                  // headings
+      .replace(/^- .*/gm, '')                   // list items
+      .trim();
+
+    // Take only the last meaningful line (likely the actual dialogue)
+    var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+    if (lines.length > 1) text = lines[lines.length - 1];
+
     if (text.length > 80) {
       var firstSentence = text.match(/^[^.!?。！？]+[.!?。！？]/);
       if (firstSentence) text = firstSentence[0].trim();

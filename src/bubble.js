@@ -9,9 +9,15 @@ const bubbleEl = document.getElementById('bubble');
 const bubbleTextEl = document.getElementById('bubble-text');
 const bubbleArrowEl = document.getElementById('bubble-arrow');
 const reactionsEl = document.getElementById('bubble-reactions');
+const replyBtn = document.getElementById('bubble-reply');
 
 let hideTimer = null;
 let activeId = null;
+
+replyBtn.addEventListener('click', function() {
+  emitTo('main', 'bubble:reply', { id: activeId }).catch(function() {});
+  hideBubble();
+});
 
 function clearArrowStyles() {
   bubbleArrowEl.style.top = '';
