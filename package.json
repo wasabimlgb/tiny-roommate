@@ -1,0 +1,19 @@
+{
+  "name": "tinyroommate",
+  "version": "0.1.0",
+  "private": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.10.1",
+    "@tauri-apps/plugin-shell": "^2.3.5",
+    "three": "^0.174.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.1",
+    "vite": "^5.4.21"
+  }
+}
