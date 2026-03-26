@@ -26,7 +26,7 @@ You open the app. A small cat appears on your desktop. It walks around, sits dow
 
 Every few minutes, a speech bubble pops up — sometimes random (*"~♪"*), sometimes surprisingly relevant (*"you've been coding since 9am... take a break?"*). You can pet it, talk to it, or just let it be.
 
-<p align="center"><strong><em>A little friend that lives in the corner of your screen.</em></strong></p>
+<p align="center"><strong><em>A little friend that lives in the corner of your screen.<br/>Long hours feel shorter when you're not alone.</em></strong></p>
 
 <br/>
 
