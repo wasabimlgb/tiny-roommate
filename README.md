@@ -65,15 +65,15 @@ All data stays on your machine. Memories, screen captures, journals — nothing 
 </p>
 <p align="center">
   <sub><strong>Tabby Cat</strong> · <strong>Golden Retriever</strong> · <strong>Blue Buddy</strong></sub><br/>
-  <sub>You can also <a href="SPRITE-SPEC.md">create your own</a> with any AI image generator</sub>
+  <sub>Create your own — see <a href="#add-a-character">Add a Character</a></sub>
 </p>
 
 ## Getting Started
 
-You need [Node.js](https://nodejs.org/) (v18+), [Rust](https://rustup.rs/), and the [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI.
+You need [Node.js](https://nodejs.org/) (v18+), [Rust](https://rustup.rs/), and [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (for the AI brain).
 
 ```bash
-git clone https://github.com/anthropics/tinyroommate.git
+git clone https://github.com/ryannli/tinyroommate.git
 cd tinyroommate
 npm install
 npx tauri dev
@@ -81,7 +81,9 @@ npx tauri dev
 
 First launch takes 2-3 min (Rust compilation). After that it's instant.
 
-### Screen Recording (optional)
+> **No Claude Code?** The pet still runs — it walks, fidgets, and reacts to clicks — but it can't think, talk, or see your screen. Install Claude Code to unlock its full brain.
+
+### Screen Recording (optional, macOS)
 
 For the pet to "see" your screen, grant permission in **System Settings → Privacy & Security → Screen Recording** for your terminal app, then restart it.
 
@@ -131,6 +133,7 @@ Your pet keeps a memory in `.pet-data/` — all plain Markdown files you can rea
 | `me-journal.md` | Its diary. It's writing about you. |
 | `owner-memory.md` | What it knows about you |
 | `owner-perceptions.md` | What it saw on your screen today |
+| `owner-timeline.md` | Daily activity summaries over time |
 
 ## License
 

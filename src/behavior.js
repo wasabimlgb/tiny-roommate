@@ -86,7 +86,7 @@ export function initBehavior(pet) {
       // Ask LLM to summarize into time blocks
       var result = await Command.create('claude', [
         '--print', '--output-format', 'text', '--model', 'haiku',
-        '-p', 'Summarize these screen observations into a timeline of activity blocks for ' + yesterday + '. Group consecutive similar activities into time ranges. Format:\n\n## ' + yesterday + '\n- HH:MM–HH:MM — Activity description\n- HH:MM–HH:MM — Activity description\n\nBe concise. Output ONLY the formatted timeline, nothing else.\n\nObservations:\n' + perceptions,
+        '-p', 'Summarize these screen observations into a timeline for ' + yesterday + '. Merge activities into coarse blocks of at least 15-20 minutes each — do NOT create short blocks for every minor change. Round times to the nearest 5 minutes. Format:\n\n## ' + yesterday + '\n- HH:MM–HH:MM — Activity description\n- HH:MM–HH:MM — Activity description\n\nBe concise. Output ONLY the formatted timeline, nothing else.\n\nObservations:\n' + perceptions,
       ]).execute();
 
       var summary = (result.stdout || '').trim();
