@@ -70,12 +70,16 @@ All data stays on your machine. Nothing leaves your laptop.
 
 You need [Node.js](https://nodejs.org/) (v18+), [Rust](https://rustup.rs/), and [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (for the AI brain).
 
+Fork this repo, then:
+
 ```bash
-git clone https://github.com/ryannli/tinyroommate.git
+git clone https://github.com/<your-username>/tinyroommate.git
 cd tinyroommate
 npm install
 npx tauri dev
 ```
+
+This is meant to be *your* pet — fork it, customize it, make it weird.
 
 First launch compiles Rust (~2-3 min). After that it's instant.
 
