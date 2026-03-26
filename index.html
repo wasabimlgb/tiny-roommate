@@ -210,6 +210,9 @@
   #context-menu button:hover {
     background: rgba(220, 170, 130, 0.15);
   }
+  #context-menu button.menu-primary {
+    font-weight: 600;
+  }
   #context-menu button .menu-shortcut {
     float: right;
     color: rgba(150, 110, 80, 0.4);
@@ -344,7 +347,7 @@
 <img id="pet-hand" src="/cursor-hand.svg" />
 <input id="chat-input" type="text" placeholder="Say something to Mochi..." />
 <div id="context-menu">
-  <button id="menu-settings">Settings...</button>
+  <button id="menu-settings" class="menu-primary">🐾 Settings...</button>
   <div class="menu-divider"></div>
   <button id="menu-inspect">Inspect Element <span class="menu-shortcut">⌥⌘I</span></button>
   <div class="menu-divider"></div>

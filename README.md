@@ -4,10 +4,8 @@
 
 <h1 align="center">TinyRoommate</h1>
 
-<p align="center">
-  <strong>A tiny AI companion that lives on your desktop.</strong><br/>
-  <sub>It sees your screen. It remembers your habits. It writes a diary about you.</sub>
-</p>
+<h3 align="center">A tiny AI companion that lives on your desktop.</h3>
+<p align="center">It sees your screen. It remembers your habits. It writes a diary.</p>
 
 <!-- TODO: add demo GIF -->
 
