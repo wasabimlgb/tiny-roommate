@@ -43,7 +43,7 @@ Sassy, chill, philosophical — you configure it. It knows when to shut up.
 Pet it and it purrs. Ignore it and it gets a little sad. It notices when you're around.
 
 **It keeps a diary**
-Plain Markdown files you can read — what it saw on your screen, what it thinks about you, daily summaries.
+Plain Markdown files you can read — its own journal, what it saw on your screen, daily summaries.
 
 **100% local**
 All data stays on your machine. Nothing leaves your laptop.
@@ -128,7 +128,7 @@ Your pet keeps a journal in `.pet-data/` — all plain Markdown files you can re
 | File | What's inside |
 |------|--------------|
 | `config.md` | Your preferences — edit this |
-| `me-journal.md` | Its diary — it's writing about you |
+| `me-journal.md` | Its personal diary |
 | `owner-memory.md` | What it's learned about you over time |
 | `owner-perceptions.md` | What it saw on your screen today |
 | `owner-timeline.md` | Daily activity summaries |
