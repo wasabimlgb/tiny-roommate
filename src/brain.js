@@ -176,10 +176,11 @@ export function getActivityLog() {
 // --- LLM response parsing ---
 
 export function parseResponse(raw) {
-  let state = 'idle';
-  let reactions = [];
+  var text = '';
+  var state = 'idle';
+  var reactions = [];
 
-  // Extract JSON from anywhere in the output (handles reasoning/commentary around it)
+  // Find the last JSON object in the output (skip any reasoning the LLM leaked)
   var jsonMatch = raw.match(/\{[\s\S]*?\}/g);
   if (jsonMatch) {
     for (var i = jsonMatch.length - 1; i >= 0; i--) {
@@ -187,38 +188,21 @@ export function parseResponse(raw) {
         var parsed = JSON.parse(jsonMatch[i]);
         if (parsed.state) {
           state = parsed.state;
+          if (parsed.text) text = parsed.text;
           if (parsed.r && Array.isArray(parsed.r)) reactions = parsed.r.slice(0, 2);
-          // Remove the JSON from the raw text to get dialogue only
-          raw = raw.replace(jsonMatch[i], '');
           break;
         }
       } catch {}
     }
   }
 
-  // Extract dialogue: strip markdown, code blocks, tool artifacts, reasoning
-  var text = raw
-    .replace(/```[\s\S]*?```/g, '')
-    .replace(/\*\*([^*]+)\*\*/g, '$1')      // **bold** → bold
-    .replace(/\*([^*]+)\*/g, '$1')         // *italic/actions* → text
-    .replace(/<[^>]+>[\s\S]*?<\/[^>]+>/g, '') // XML tags
-    .split('\n')
-    .map(function(l) { return l.trim(); })
-    .filter(function(l) {
-      if (!l) return false;
-      // Skip lines that look like reasoning, not dialogue
-      if (l.startsWith('I\'ve read') || l.startsWith('I need to') || l.startsWith('Given') || l.startsWith('This is a')) return false;
-      if (l.startsWith('Here\'s') || l.startsWith('Let me') || l.startsWith('Based on')) return false;
-      if (l.match(/^(Read|read|The |As |Since |Looking|Checking)/)) return false;
-      return true;
-    })
-    .join(' ')
-    .trim();
-
-  // If still too long, take just the first sentence
-  if (text.length > 80) {
-    var firstSentence = text.match(/^[^.!?]+[.!?]/);
-    if (firstSentence) text = firstSentence[0].trim();
+  // Clean up: strip any markdown that slipped into the text field
+  if (text) {
+    text = text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').trim();
+    if (text.length > 80) {
+      var firstSentence = text.match(/^[^.!?。！？]+[.!?。！？]/);
+      if (firstSentence) text = firstSentence[0].trim();
+    }
   }
 
   return { text, state, reactions };
