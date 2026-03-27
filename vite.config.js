@@ -1,9 +1,8 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-const envPort = Number(process.env.TAURI_DEV_PORT || process.env.PORT);
-const hasFixedPort = Number.isInteger(envPort) && envPort > 0 && envPort < 65536;
-const requestedPort = hasFixedPort ? envPort : 5173;
+const requestedPort = Number(process.env.TAURI_DEV_PORT || process.env.PORT || 5173);
+const hasFixedPort = Boolean(process.env.TAURI_DEV_PORT || process.env.PORT);
 
 export default defineConfig({
   clearScreen: false,

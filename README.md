@@ -127,7 +127,20 @@ You need [Node.js](https://nodejs.org/) (v18+), [Rust](https://rustup.rs/), and 
 gh repo fork ryannli/tinyroommate --clone
 cd tinyroommate
 npm install
-npm run tauri:dev
+npm run tauri dev
+```
+
+`npm run tauri dev` picks an open port automatically.
+If you want to force a specific port, set `TAURI_DEV_PORT`:
+
+```bash
+TAURI_DEV_PORT=5180 npm run tauri dev
+```
+
+If you are only running the frontend without Tauri, `npm run dev` also accepts a fixed port through `PORT`:
+
+```bash
+PORT=5180 npm run dev
 ```
 
 `npm run tauri:dev` picks an open port automatically. Set `TAURI_DEV_PORT=5180` to pin Tauri dev to a specific port, or `PORT=5180` when running the frontend without Tauri.
