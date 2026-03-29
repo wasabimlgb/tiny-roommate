@@ -48,15 +48,11 @@ If you want the character to appear in the README preview gallery, generate prev
 
 ```bash
 python3 scripts/generate-preview-gif.py public/sprites/your_character.png \
-  -o assets/previews/your_character.gif \
-  --still-output assets/previews/your_character.png
+  -o assets/previews/your_character.gif
 ```
 
 This script expects the cleaned `8x9` sheet produced by `process-spritesheet-v4.py` with `--target 128`.
 
-These preview assets are docs-only:
-
-- `assets/previews/your_character.gif`
-- `assets/previews/your_character.png`
+The preview GIF is docs-only (`assets/previews/your_character.gif`).
 
 The app itself only needs `public/sprites/your_character.png` and the matching registration in `src/characters.js`.

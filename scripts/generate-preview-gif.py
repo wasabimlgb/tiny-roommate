@@ -3,9 +3,7 @@
 Generate README/settings preview assets from a processed TinyRoommate sprite sheet.
 
 Input must be the cleaned 8x9 PNG written to public/sprites/{name}.png.
-This script creates:
-1. an animated GIF for assets/previews/{name}.gif
-2. an optional still PNG for assets/previews/{name}.png
+This script creates an animated GIF for assets/previews/{name}.gif.
 """
 
 from __future__ import annotations
@@ -38,10 +36,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate TinyRoommate preview GIF/PNG assets")
     parser.add_argument("input", help="Processed sprite sheet PNG, usually public/sprites/<name>.png")
     parser.add_argument("-o", "--output", required=True, help="Output GIF path")
-    parser.add_argument(
-        "--still-output",
-        help="Optional still PNG path. Defaults to the GIF path with a .png extension.",
-    )
     parser.add_argument(
         "--size",
         type=int,
@@ -131,11 +125,6 @@ def prepare_for_gif(frame: Image.Image, alpha_threshold: int = 128) -> Image.Ima
     return Image.fromarray(arr)
 
 
-def save_still(frame: Image.Image, path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    frame.save(path)
-
-
 def save_gif(frames: list[Image.Image], path: Path, frame_duration: int) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     first, rest = frames[0], frames[1:]
@@ -154,7 +143,6 @@ def main() -> None:
     args = parse_args()
     input_path = Path(args.input)
     output_path = Path(args.output)
-    still_path = Path(args.still_output) if args.still_output else output_path.with_suffix(".png")
 
     sheet = Image.open(input_path).convert("RGBA")
     validate_sheet(sheet)
@@ -162,10 +150,8 @@ def main() -> None:
 
     prepared = [prepare_for_gif(f) for f in frames]
     save_gif(prepared, output_path, args.frame_duration)
-    save_still(prepared[0], still_path)
 
     print(f"Saved GIF: {output_path}")
-    print(f"Saved PNG: {still_path}")
 
 
 if __name__ == "__main__":
