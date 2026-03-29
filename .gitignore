@@ -11,3 +11,4 @@ package-lock.json
 internal-docs/
 .DS_Store
 __pycache__/
+rust-toolchain.toml
