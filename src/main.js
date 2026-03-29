@@ -68,7 +68,10 @@ initInteraction(pet);
 // --- Right-click: context menu window ---
 document.addEventListener('contextmenu', function(e) {
   e.preventDefault();
-  showContextMenu(e.screenX, e.screenY).catch(function() {});
+  var dpr = window.devicePixelRatio || 1;
+  pet.appWindow.outerPosition().then(function(pos) {
+    showContextMenu(pos.x / dpr + e.clientX, pos.y / dpr + e.clientY).catch(function() {});
+  });
 });
 
 // --- Events from sub-windows ---

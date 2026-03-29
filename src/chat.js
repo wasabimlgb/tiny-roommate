@@ -4,6 +4,12 @@ import { emitTo, listen } from '@tauri-apps/api/event';
 
 var appWindow = getCurrentWindow();
 var input = document.getElementById('chat-input');
+var hideTimer = null;
+
+function hideWindow() {
+  input.value = '';
+  appWindow.hide().catch(function() {});
+}
 
 // Refresh placeholder and focus when shown
 listen('chat:open', function(event) {
@@ -12,9 +18,9 @@ listen('chat:open', function(event) {
   input.focus();
 });
 
-// Also focus on window focus event (covers initial open)
+// Re-focus input when window gets focus (don't clear value — user may have typed)
 appWindow.listen('tauri://focus', function() {
-  input.value = '';
+  if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
   input.focus();
 });
 
@@ -22,19 +28,20 @@ input.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
     var text = input.value.trim();
     input.value = '';
-    emitTo('main', 'chat:submit', { text: text });
-    appWindow.hide().catch(function() {});
+    // Hide after emitTo completes so the event isn't lost
+    emitTo('main', 'chat:submit', { text: text }).then(function() {
+      appWindow.hide().catch(function() {});
+    });
   }
   if (e.key === 'Escape') {
-    input.value = '';
-    appWindow.hide().catch(function() {});
+    hideWindow();
   }
 });
 
+// Hide when input loses focus (user clicked outside the chat window)
 input.addEventListener('blur', function() {
-  // Small delay so mousedown on other elements fires first
-  setTimeout(function() {
-    input.value = '';
-    appWindow.hide().catch(function() {});
-  }, 150);
+  hideTimer = setTimeout(function() {
+    hideTimer = null;
+    hideWindow();
+  }, 200);
 });

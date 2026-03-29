@@ -1,4 +1,5 @@
 // Window managers: settings, context menu, chat
+import { emitTo } from '@tauri-apps/api/event';
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow';
 
 export function getDefaultScale() {
@@ -128,5 +129,8 @@ export async function openChatWindow(pet) {
 
   await chat.setPosition({ type: 'Physical', x: Math.round(xLogical * dpr), y: Math.round(yLogical * dpr) });
   await chat.show();
+  await emitTo('chat', 'chat:open', {
+    placeholder: 'Say something to ' + pet.petName + '...',
+  });
   await chat.setFocus();
 }
