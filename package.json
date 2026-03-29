@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "tauri": "tauri",
+    "tauri": "node scripts/run-tauri.cjs",
+    "tauri:dev": "node scripts/run-tauri.cjs dev",
     "test": "vitest run"
   },
   "dependencies": {

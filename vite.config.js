@@ -1,6 +1,10 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
+const envPort = Number(process.env.TAURI_DEV_PORT || process.env.PORT);
+const hasFixedPort = Number.isInteger(envPort) && envPort > 0 && envPort < 65536;
+const requestedPort = hasFixedPort ? envPort : 5173;
+
 export default defineConfig({
   clearScreen: false,
   test: {
@@ -19,8 +23,8 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
-    strictPort: true,
+    port: requestedPort,
+    strictPort: hasFixedPort,
   },
   envPrefix: ['VITE_', 'TAURI_'],
 });
